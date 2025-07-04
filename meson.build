@@ -325,7 +325,7 @@ if get_option('kernel') != ''
 endif
 
 if meson.is_cross_build()
-  cargo_target = host_machine.cpu_family() + '-unknown-' + host_machine.kernel() + '-gnu'
+  cargo_target = host_machine.cpu_family() + '-unknown-' + host_machine.system() + '-gnu'
   cargo_build_args += ['--target', cargo_target]
 endif
 
@@ -463,7 +463,7 @@ if enable_stress
       else
         run_target('stress_tests_'+s, command: [run_stress_tests, '-k', kernel,
                                                 '-b', meson.current_build_dir(), '--sched', s,
-                                                '--rw', 'true', 
+                                                '--rw', 'true',
                                                 '--headers', get_option('kernel_headers'),
                                                 '--extra-scheduler-args', get_option('extra_sched_args')],
                                                 depends: [copys])
@@ -472,12 +472,12 @@ if enable_stress
   else
       foreach s : rust_scheds
         if get_option('kernel_headers') == ''
-          run_target('stress_tests_'+s, command: [run_stress_tests, '-k', kernel, 
+          run_target('stress_tests_'+s, command: [run_stress_tests, '-k', kernel,
                                               '-b', meson.current_build_dir(), '--sched', s,
                                               '--extra-scheduler-args', get_option('extra_sched_args')],
                                               depends: [copys])
         else
-          run_target('stress_tests_'+s, command: [run_stress_tests, '-k', kernel, 
+          run_target('stress_tests_'+s, command: [run_stress_tests, '-k', kernel,
                                               '-b', meson.current_build_dir(), '--sched', s,
                                               '--headers', get_option('kernel_headers'),
                                               '--extra-scheduler-args', get_option('extra_sched_args')],
