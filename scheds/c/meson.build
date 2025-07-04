@@ -1,6 +1,6 @@
 c_scheds = ['scx_simple']
 
-# c_scheds_lib = ['scx_sdt']
+c_scheds_lib = []
 
 thread_dep = dependency('threads')
 
