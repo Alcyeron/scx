@@ -254,8 +254,7 @@ bpf_extra_cflags = []
 if bpf_extra_cflags_str != ''
   bpf_extra_cflags = bpf_extra_cflags_str.split('?')
 endif
-llvm_cflags = run_command('llvm-config', '--cflags', check: true)
-                .stdout().strip().split()
+llvm_cflags = run_command('llvm-config', '--cflags', check: true).stdout().strip().split()
 sys_incls = run_command(get_sys_incls, bpf_clang, check: true).stdout().splitlines()
 bpf_base_cflags = ['-g', '-O2', '-Wall', '-Wno-compare-distinct-pointer-types',
                    '-D__TARGET_ARCH_' + arch_dict[cpu], '-mcpu=v3',
