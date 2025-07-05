@@ -1,5 +1,7 @@
 option('bpf_clang', type: 'string', value: 'clang',
        description: 'clang to use when compiling .bpf.c')
+option('bpf_extra_cflags', type: 'string', value: '',
+       description: 'extra CFLAGS to use when compiling .bpf.c')
 option('bpftool', type: 'string',
        description: 'bpftool to use when generating .bpf.skel.h. By default, bpftool is automatically downloaded and built during setup. To use an existing bpftool binary, point this to the bpftool path or set it to "disabled" to have meson try to find it automatically')
 option('libbpf_a', type: 'string',

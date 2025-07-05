@@ -250,10 +250,11 @@ if cpu not in arch_dict
   error('CPU family "@0@" is not in known arch dict'.format(cpu))
 endif
 
+bpf_extra_cflags = get_option('bpf_extra_cflags')
 sys_incls = run_command(get_sys_incls, bpf_clang, check: true).stdout().splitlines()
 bpf_base_cflags = ['-g', '-O2', '-Wall', '-Wno-compare-distinct-pointer-types',
                    '-D__TARGET_ARCH_' + arch_dict[cpu], '-mcpu=v3',
-                   '-m@0@-endian'.format(host_machine.endian())] + sys_incls
+                   '-m@0@-endian'.format(host_machine.endian())] + sys_incls + bpf_extra_cflags
 
 if get_option('werror')
   bpf_base_cflags += '-Werror'
