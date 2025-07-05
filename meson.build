@@ -249,8 +249,11 @@ cpu = host_machine.cpu_family()
 if cpu not in arch_dict
   error('CPU family "@0@" is not in known arch dict'.format(cpu))
 endif
+bpf_extra_cflags_str = get_option('bpf_extra_cflags')
+bpf_extra_cflags = []
+if bpf_extra_cflags_str != ''
+  bpf_extra_cflags = bpf_extra_cflags_str.split()
 
-bpf_extra_cflags = get_option('bpf_extra_cflags')
 sys_incls = run_command(get_sys_incls, bpf_clang, check: true).stdout().splitlines()
 bpf_base_cflags = ['-g', '-O2', '-Wall', '-Wno-compare-distinct-pointer-types',
                    '-D__TARGET_ARCH_' + arch_dict[cpu], '-mcpu=v3',
